@@ -1,0 +1,3 @@
+.vs/
+FirstProject/.vs/
+FirstProject/FirstProject/.vs/
