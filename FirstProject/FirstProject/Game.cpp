@@ -7,7 +7,11 @@ Game::Game(RenderWindow *window)
 	window->setFramerateLimit(60);
 
 	// Init textures
-	if (!playerTexture.loadFromFile("Textures/petergriffin_transparent.png", sf::IntRect(0, 0, 32, 32)))
+	if (!playerTexture.loadFromFile("Textures/petergriffinspritesheet.png", sf::IntRect(0, 0, 64, 64)))
+	{
+		// error...
+	}
+	if (!bulletTexture.loadFromFile("Textures/petergriffinspritesheet.png", sf::IntRect(0, 64, 64, 64)))
 	{
 		// error...
 	}
@@ -15,8 +19,8 @@ Game::Game(RenderWindow *window)
 	// Init player 
 	// Default is WASD and space, but enter parameters as shown below for different binds
 	// player = new Player(&this->playerTexture, Keyboard::Up, Keyboard::Down, Keyboard::Left, Keyboard::Right, Keyboard::Enter);
-	players.push_back(Player(&playerTexture));
-	player = new Player(&this->playerTexture);
+	players.push_back(Player(&playerTexture, &bulletTexture));
+	//player = new Player(&this->playerTexture);
 
 }
 

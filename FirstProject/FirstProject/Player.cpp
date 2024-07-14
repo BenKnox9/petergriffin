@@ -4,7 +4,7 @@ unsigned Player::players = 0;
 
 enum controls {UP, DOWN, LEFT, RIGHT, SHOOT};
 
-Player::Player(Texture* texture,
+Player::Player(Texture* texture, Texture *bulletTexture,
 	int UP, int DOWN,
 	int LEFT, int RIGHT,
 	int SHOOT)
@@ -15,9 +15,10 @@ Player::Player(Texture* texture,
 	score(0)
 {
 	this->texture = texture;
+	this->bulletTexture = bulletTexture;
 	this->sprite.setTexture(*this->texture);
 
-	this->sprite.setScale(3.0f, 3.0f);
+	this->sprite.setScale(1.5f, 1.5f);
 
 	this->controls[controls::UP] = UP;
 	this->controls[controls::DOWN] = DOWN;
@@ -47,15 +48,25 @@ void Player::Movement()
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::RIGHT])))
 		this->sprite.move(5.f, 0.f);
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::SHOOT])))
-		std::cout << "SHOOT" << "\n";
+		this->bullets.push_back(Bullet(bulletTexture, this->sprite.getPosition()));
 }
 
 void Player::Update()
 {
 	this->Movement();
+
+	for (size_t i = 0; i < this->bullets.size(); i++)
+	{
+		this->bullets[i].Update();
+	}
 }
 
 void Player::Draw(RenderTarget &target)
 {
 	target.draw(this->sprite);
+
+	for (size_t i = 0; i < this->bullets.size(); i++)
+	{
+		this->bullets[i].Draw(target);
+	}
 }
