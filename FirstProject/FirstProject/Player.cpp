@@ -17,8 +17,12 @@ Player::Player(Texture* texture, Texture *bulletTexture,
 	this->texture = texture;
 	this->bulletTexture = bulletTexture;
 	this->sprite.setTexture(*this->texture);
-
 	this->sprite.setScale(1.5f, 1.5f);
+
+	this->shootTimerMax = 25;
+	this->shootTimer = this->shootTimerMax;
+	this->damageTimerMax = 10;
+	this->damageTimer = this->damageTimerMax;
 
 	this->controls[controls::UP] = UP;
 	this->controls[controls::DOWN] = DOWN;
@@ -47,18 +51,31 @@ void Player::Movement()
 		this->sprite.move(-5.f, 0.f);
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::RIGHT])))
 		this->sprite.move(5.f, 0.f);
-	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::SHOOT])))
-		this->bullets.push_back(Bullet(bulletTexture, this->sprite.getPosition()));
+
 }
 
-void Player::Update()
+void Player::Combat() 
 {
-	this->Movement();
-
-	for (size_t i = 0; i < this->bullets.size(); i++)
+	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::SHOOT])) && this->shootTimer >= this->shootTimerMax)
 	{
-		this->bullets[i].Update();
+		this->bullets.push_back(Bullet(bulletTexture, this->sprite.getPosition()));
+		this->shootTimer = 0;
 	}
+}
+
+void Player::Update(Vector2u windowBounds)
+{
+	// Update timers
+	if (this->shootTimer < this->shootTimerMax) {
+		this->shootTimer++;
+	}
+
+	if (this->damageTimer < this->damageTimerMax) {
+		this->damageTimer++;
+	}
+
+	this->Movement();
+	this->Combat();
 }
 
 void Player::Draw(RenderTarget &target)

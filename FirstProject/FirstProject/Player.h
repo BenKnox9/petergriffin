@@ -15,6 +15,12 @@ private:
 	Texture* bulletTexture;
 	std::vector <Bullet> bullets;
 
+	int shootTimer;
+	int shootTimerMax;
+	int damageTimer;
+	int damageTimerMax;
+
+
 	int controls[5];
 
 	int level;
@@ -39,8 +45,17 @@ public:
 
 	virtual ~Player();
 
+	// Accessors
+	inline std::vector<Bullet>& getBullets() 
+	{
+		return this->bullets; 
+	}
+
+
+	// Functions
 	void Movement();
-	void Update();
+	void Combat();
+	void Update(Vector2u windowBounds);
 	void Draw(RenderTarget &target);
 
 	// Statics

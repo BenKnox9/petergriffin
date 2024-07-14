@@ -26,7 +26,7 @@ public:
 
 
 	// Functions
+	void CombatUpdate();
 	void Update();
-
 	void Draw();
 };
