@@ -12,7 +12,8 @@ Game::Game(RenderWindow *window)
 		// error...
 	}
 
-	// Init player default is WASD and space, but enter parameters e.g. Keyboard::5 for different controls
+	// Init player default is WASD and space, but enter parameters as shown below for different binds
+	// player = new Player(&this->playerTexture, Keyboard::Up, Keyboard::Down, Keyboard::Left, Keyboard::Right, Keyboard::Enter);
 	player = new Player(&this->playerTexture);
 }
 
