@@ -7,6 +7,11 @@ class Game
 private:
 	RenderWindow* window;
 
+
+	Font font;
+	std::vector<Text> followPlayerTexts;
+	std::vector<Text> staticPlayerTexts;
+
 	std::vector<Player> players;
 	Player* player;
 	Texture playerTexture;
@@ -26,7 +31,8 @@ public:
 
 
 	// Functions
-	void CombatUpdate();
+	void InitUI();
+	void UpdateUI();
 	void Update();
 	void Draw();
 };

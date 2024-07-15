@@ -5,7 +5,7 @@ using namespace sf;
 int main()
 {
     // create the window
-    RenderWindow window(VideoMode(800, 600), "First project", Style::Default);
+    RenderWindow window(VideoMode(800, 600), "Peter", Style::Default);
     CircleShape shape(100.f);
     //shape.setFillColor(Color::Green);
 

@@ -19,6 +19,7 @@ Player::Player(Texture* texture, Texture *bulletTexture,
 	this->sprite.setTexture(*this->texture);
 	this->sprite.setScale(1.5f, 1.5f);
 
+	this->shootTimerMin = 20;
 	this->shootTimerMax = 25;
 	this->shootTimer = this->shootTimerMax;
 	this->damageTimerMax = 10;
@@ -56,10 +57,13 @@ void Player::Movement()
 
 void Player::Combat() 
 {
-	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::SHOOT])) && this->shootTimer >= this->shootTimerMax)
+	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::SHOOT])) && this->shootTimer >= this->shootTimerMin)
 	{
 		this->bullets.push_back(Bullet(bulletTexture, this->sprite.getPosition()));
-		this->shootTimer = 0;
+		if (this->shootTimer >= this->shootTimerMax) 
+		{
+			this->shootTimer = 0;
+		}
 	}
 }
 
